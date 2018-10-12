@@ -1,1 +1,87 @@
-hello! I'm fantuotuo.
+﻿<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+	<meta charset="utf-8">
+
+	<meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+	<title>继时拼图</title>
+	<style>
+		body{
+			margin:0;
+			touch-action: none;
+		}
+		canvas{
+			width:100%!important;
+			height:100%!important;
+		}
+		.game-player{
+			width:100%;
+			height:100vh;
+			background:#888888;
+			background:transparent;
+			overflow:hidden;
+		}
+        @media (max-width:1220px){
+            .game-player{
+                width:100%;
+                height:100vh;
+            }
+        }
+
+	</style>
+</head>
+<body>
+	<div class="game-player" id="game-player">
+		
+	</div>
+	<div style="display:none" id="initScore">0</div>
+	<script src="../public/js/jquery.min.js" type="text/javascript"></script>
+	<script src="../public/js/index.js" type="text/javascript"></script>
+
+	<script>
+	 var wd;
+	 // document.addEventListener("click",function(){
+	 // 	var w=screen.width;
+	 // 	var h=screen.height;console.log(w)
+	 // 	wd=window.open("http://localhost/jzh/50",'newwindow', 'height='+h+', width='+w+', top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no');
+	 // 	window.close();
+	 // });
+
+
+	function loadScripts(arr,callback){
+		var count=0;
+		loadSingleScript();
+		function loadSingleScript(){
+			var s=document.createElement("script");
+			s.async = false;
+			s.src=arr[count];
+			s.addEventListener('load',function(){
+				s.parentNode.removeChild(s);
+				count++;
+				if(count<arr.length){
+					loadSingleScript();
+				}else{
+					callback();
+				}
+			});
+			document.body.appendChild(s)
+		}
+	}
+
+	var xhr=new XMLHttpRequest();
+	xhr.onreadystatechange=stateChange;
+	xhr.open("GET","./properties.json?v="+Math.random(),true);
+	xhr.send(null);
+	allScripts=[];
+	function stateChange(){
+		if(xhr.readyState==4 && xhr.status==200){
+			allScripts=JSON.parse(xhr.responseText).game;
+			loadScripts(allScripts,function(){
+				console.log("load end.");
+			});
+		}
+	}
+
+	</script>
+</body>
+</html>
