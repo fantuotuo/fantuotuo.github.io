@@ -103,6 +103,8 @@ function addModel(){
 	tip=new THREE.Mesh(geo,mat);
 	tip.rotation.x=-Math.PI/2;
 	game_scene.addToScene(tip);
+
+	window.loadEnd();
 }
 
 
@@ -253,7 +255,7 @@ getDes3();
 document.onclick=function(){
 	boxOpen();
 }
-document.conclick=function(){
+document.ontouchend=function(){
 	boxOpen();
 }
 function boxOpen(){

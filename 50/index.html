@@ -26,12 +26,29 @@
                 height:100vh;
             }
         }
+        .hide{
+        	display:none;
+        }
+        #loading{
+        	position:absolute;
+        	width:100%;
+        	height:100vh;
+        	line-height: 100vh;
+        	text-align:center;
+        	color:#0d0;
+        	top:0;
+        	left:0;
+        	font-size:40px;
+        }
 
 	</style>
 </head>
 <body>
 	<div class="game-player" id="game-player">
 		
+	</div>
+	<div id="loading">
+		请稍等...
 	</div>
 	<div style="display:none" id="initScore">0</div>
 
@@ -43,7 +60,9 @@
 	 // 	wd=window.open("http://localhost/jzh/50",'newwindow', 'height='+h+', width='+w+', top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no');
 	 // 	window.close();
 	 // });
-
+window.loadEnd=function(){
+	$("#loading").addClass("hide");
+}
 
 	function loadScripts(arr,callback){
 		var count=0;
