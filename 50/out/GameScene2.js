@@ -80,7 +80,12 @@
 		var ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
 		scene.add(ambientLight);
 		var directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);
-		directionalLight.position.set(10, 10, 2);
+
+		this.lightOn = function () {
+			// console.log(directionalLight.intensity)
+			directionalLight.intensity += (5 - directionalLight.intensity) / 50;
+		};
+		directionalLight.position.set(0, 500, 0);
 		scene.add(directionalLight);
 		directionalLight.castShadow = true;
 		directionalLight.shadow.camera.near = 2;
@@ -95,7 +100,7 @@
 		renderer.shadowMap.enabled = true;
 
 		var gridHelper = new THREE.GridHelper(2, 2);
-		scene.add(gridHelper);
+		//scene.add( gridHelper );
 		var helper = new THREE.CameraHelper(directionalLight.shadow.camera);
 		// scene.add(helper);
 
@@ -113,10 +118,10 @@
 				return x % y;
 			}
 		}
-		let ang = 0.1;
+		let ang = 0;
 		let o_x = 0;
 		let ratio = 0.01;
-		let rot = Math.PI * 1 / 2;
+		let rot = Math.PI * 3 / 2;
 		canvas.addEventListener("touchstart", function (e) {
 			o_x = e.targetTouches[0].clientX;
 		});
@@ -156,6 +161,9 @@
 			scene.add(obj);
 		};
 		this.removeFromScene = function (obj) {
+			scene.remove(obj);
+		};
+		this.remove = function (obj) {
 			scene.remove(obj);
 		};
 		this.lookAt = function (pos) {

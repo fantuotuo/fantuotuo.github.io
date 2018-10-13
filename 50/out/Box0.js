@@ -28,6 +28,8 @@
 
 	const W = window.innerWidth;
 	const H = window.innerHeight;
+	const DEPTH = 80;
+	const OFFSET = 100;
 	function Box0() {
 		this.__proto__ = new THREE.Group();
 
@@ -36,10 +38,12 @@
 		// let o=new THREE.Mesh(geo,mat);
 		// this.add(o)
 
-		let o = _GLB2.default.res["box"];
+		let o = _GLB2.default.res["box5"];
 		this.add(o);
-		o.x = W / 2;
-		o.z = H / 2;
+
+		this.position.x = W / 2;
+		this.position.z = H / 2 + DEPTH + OFFSET;
+		this.rotation.x = -Math.PI / 2;
 
 		this.MyAPI = {};
 		this.MyAPI.render = function () {};

@@ -13,12 +13,13 @@ const DX=10,DY=10;
 
 
 
-const N=50;
+const N=200;
 let points=[];
-const TXT_ARR=["天天","开心"];
+const TXT_ARR=["娟娟：送你","一个小礼物","你要每天都","开心的噢"];
 const W=window.innerWidth;
 const H=window.innerHeight;
-const SCALE=2;
+const SCALE=1;
+const SIZE=W/7;
 
 let index_txt=-1;
 let positions=[];
@@ -27,14 +28,36 @@ let pars=[];
 
 for(let i=0;i<N;i++){
 	pars[i]=new Par(i);
-	container.add(pars[i]);
+}
+var arr=[
+	"tip.png",
+];
+let total=arr.length;
+loadRes();
+function loadRes(){
+	var count=-1;
+	loadNext();
+
+	function loadNext(){
+		count++;
+		if(count>=total){
+			loadEnd();
+		}else{
+			new THREE.TextureLoader().load("./assets/"+arr[count],function (res){
+				GLB.res[arr[count]]=res;
+				loadNext();
+			});
+		}
+	}
+	function loadEnd(){
+		loadModel();
+	}
 }
 var arr_model=[
-	"box",
-	"box2",
+	
+	"box2","box5",
 ];
 let total_model=arr_model.length;
-loadModel();
 function loadModel(){
 	var count=-1;
 	loadNext();
@@ -61,12 +84,25 @@ function loadModel(){
 		addModel();
 	}
 }
+let box0,box1;
+let tip;
 function addModel(){
-	let box0=new Box0();
-	let box1=new Box1();
+	box0=new Box0();
+	box1=new Box1();
 
 	container.add(box0);
 	container.add(box1);
+
+	for(let i=0;i<N;i++){
+		container.add(pars[i]);
+	}
+
+	let geo=new THREE.PlaneGeometry(512,512);
+	let mat=new THREE.MeshLambertMaterial({map:GLB.res["tip.png"]});
+	mat.transparent=true;
+	tip=new THREE.Mesh(geo,mat);
+	tip.rotation.x=-Math.PI/2;
+	game_scene.addToScene(tip);
 }
 
 
@@ -93,8 +129,8 @@ function getData(){
 	ctx.fillRect(0,0,c_w,c_h);
 	ctx.fillStyle="rgb(255,0,0)";
 	ctx.textAlign="center";
-	ctx.font="150px Microsoft YaHei";
-	ctx.fillText(txt,400,150);
+	ctx.font=SIZE+"px Microsoft YaHei";
+	ctx.fillText(txt,c_w/2,SIZE*3);
 	let image_data=ctx.getImageData(0,0,c_w,c_h).data;
 	for(let j=0;j<c_h;j++){
 		for(let i=0;i<c_w;i++){
@@ -131,7 +167,7 @@ function getData(){
 					let p=positions[index_txt][j];
 					if(p){
 						let d=Math.sqrt(Math.pow(p.x-p0.x,2) + Math.pow(p.y-p0.y,2));
-						if(d<=40){
+						if(d<=10){
 							positions[index_txt].splice(j,1);
 							j--;
 						}
@@ -215,5 +251,17 @@ for(let i=0;i<TXT_ARR.length;i++){
 index_txt=-1;
 getDes3();
 document.onclick=function(){
-	container.start=true;
+	boxOpen();
+}
+document.conclick=function(){
+	boxOpen();
+}
+function boxOpen(){
+	box1.startRotate(function(){
+		container.start=true;
+	});
+	game_scene.lightOn();
+	game_scene.remove(tip)
+	document.onclick=null;
+	document.ontouchend=null;
 }

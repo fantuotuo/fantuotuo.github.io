@@ -5,6 +5,7 @@ const SINGLE_AREA=W*H/N;
 const AREA_LENGTH=Math.floor(Math.sqrt(SINGLE_AREA));
 const SPEED=50;
 const T=100;
+const OFFSET=100;
 
 export default function Par(i){
 	let geo=new THREE.SphereGeometry(5,32,32);
@@ -51,7 +52,7 @@ export default function Par(i){
 	}
 
 	this.x=W/2;
-	this.y=H/2;
+	this.y=H/2+OFFSET;
 	this.dx=this.x;
 	this.dy=this.y;
 	this.yanchi=Math.floor(Math.random()*200)+1;
