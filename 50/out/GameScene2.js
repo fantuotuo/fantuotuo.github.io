@@ -79,12 +79,9 @@
 
 		var ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
 		scene.add(ambientLight);
-		var directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);
+		var directionalLight = new THREE.DirectionalLight(0xffffff, 0.3);
 
-		this.lightOn = function () {
-			// console.log(directionalLight.intensity)
-			directionalLight.intensity += (5 - directionalLight.intensity) / 50;
-		};
+		this.lightOn = function () {};
 		directionalLight.position.set(0, 500, 0);
 		scene.add(directionalLight);
 		directionalLight.castShadow = true;
@@ -94,6 +91,10 @@
 		directionalLight.shadow.camera.right = 5;
 		directionalLight.shadow.camera.top = 5;
 		directionalLight.shadow.camera.bottom = -5;
+
+		let pLight = new THREE.PointLight(0xff0000, 3);
+		pLight.position.set(0, 0, 100);
+		scene.add(pLight);
 
 		renderer = new THREE.WebGLRenderer(canvas.getContext('webgl'));
 		renderer.setSize(W, H);

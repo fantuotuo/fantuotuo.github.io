@@ -28,8 +28,9 @@
 
 	const W = window.innerWidth;
 	const H = window.innerHeight;
+	const scale = 0.6;
 	const DEPTH = 80;
-	const OFFSET = 100;
+	const OFFSET = 100 * scale;
 	function Box0() {
 		this.__proto__ = new THREE.Group();
 
@@ -40,6 +41,7 @@
 
 		let o = _GLB2.default.res["box5"];
 		this.add(o);
+		o.scale.x = o.scale.y = o.scale.z = scale;
 
 		this.position.x = W / 2;
 		this.position.z = H / 2 + DEPTH + OFFSET;

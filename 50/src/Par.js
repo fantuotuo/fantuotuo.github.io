@@ -3,15 +3,16 @@ const W=window.innerWidth;
 const H=window.innerHeight;
 const SINGLE_AREA=W*H/N;
 const AREA_LENGTH=Math.floor(Math.sqrt(SINGLE_AREA));
-const SPEED=50;
+const SPEED=100;
 const T=100;
 const OFFSET=100;
 
 export default function Par(i){
-	let geo=new THREE.SphereGeometry(5,32,32);
+	let geo=new THREE.SphereGeometry(4,32,32);
 	let r=20+Math.floor(185*Math.random()),
 		g=20+Math.floor(185*Math.random()),
 		b=20+Math.floor(185*Math.random());
+	r=g=b=255;
 	let color=256*256*r+256*g+b;
 
 	let mat=new THREE.MeshLambertMaterial({color:color});
@@ -24,7 +25,7 @@ export default function Par(i){
 	this.o_x=this.dx=this.x;
 	this.o_y=this.dy=this.y;
 
-	this.r=3;
+	this.r=2;
 	this.alpha=1;
 
 	this.MyAPI={};

@@ -50,6 +50,28 @@ function loadRes(){
 		}
 	}
 	function loadEnd(){
+		loadSound();
+	}
+}
+var arr_sound=[
+	"m.mp3",
+];
+let total_sound=arr_sound.length;
+function loadSound(){
+	var count=-1;
+	loadNext();
+	function loadNext(){
+		count++;
+		if(count>=total_sound){
+			loadEnd();
+		}else{
+			new THREE.AudioLoader().load("./assets/"+arr_sound[count],function(buffer){
+				GLB.res[arr_sound[count]]=buffer;
+				loadNext();
+			})
+		}
+	}
+	function loadEnd(){
 		loadModel();
 	}
 }
@@ -86,6 +108,7 @@ function loadModel(){
 }
 let box0,box1;
 let tip;
+let sound;
 function addModel(){
 	box0=new Box0();
 	box1=new Box1();
@@ -103,6 +126,16 @@ function addModel(){
 	tip=new THREE.Mesh(geo,mat);
 	tip.rotation.x=-Math.PI/2;
 	game_scene.addToScene(tip);
+
+	sound=new THREE.Audio(game_scene.listener);
+	sound.setBuffer(GLB.res["m.mp3"]);
+
+	document.onclick=function(){
+		boxOpen();
+	}
+	document.ontouchend=function(){
+		boxOpen();
+	}
 
 	window.loadEnd();
 }
@@ -169,7 +202,7 @@ function getData(){
 					let p=positions[index_txt][j];
 					if(p){
 						let d=Math.sqrt(Math.pow(p.x-p0.x,2) + Math.pow(p.y-p0.y,2));
-						if(d<=10){
+						if(d<=8){
 							positions[index_txt].splice(j,1);
 							j--;
 						}
@@ -252,18 +285,15 @@ for(let i=0;i<TXT_ARR.length;i++){
 // console.timeEnd("开始")
 index_txt=-1;
 getDes3();
-document.onclick=function(){
-	boxOpen();
-}
-document.ontouchend=function(){
-	boxOpen();
-}
+
 function boxOpen(){
 	box1.startRotate(function(){
 		container.start=true;
 	});
 	game_scene.lightOn();
-	game_scene.remove(tip)
+	game_scene.remove(tip);
+	sound.play();
+
 	document.onclick=null;
 	document.ontouchend=null;
 }
