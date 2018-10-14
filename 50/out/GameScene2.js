@@ -124,9 +124,11 @@
 		let ratio = 0.01;
 		let rot = Math.PI * 3 / 2;
 		canvas.addEventListener("touchstart", function (e) {
+			e.preventDefault();
 			o_x = e.targetTouches[0].clientX;
 		});
 		canvas.addEventListener("touchmove", function (e) {
+			e.preventDefault();
 			let x = e.targetTouches[0].clientX;
 			ang += ratio * (x - o_x);
 			if (mod(ang, Math.PI * 2) <= Math.PI) {
