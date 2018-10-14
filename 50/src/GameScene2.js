@@ -102,11 +102,19 @@ export default function SceneInit2(){
 				let ratio=0.01;
 				let rot=Math.PI*3/2;
 				canvas.addEventListener("touchstart",function(e){
-					e.preventDefault();
+					e.preventDefault && e.preventDefault();
+			         e.returnValue = false;
+			         e.stopPropagation && e.stopPropagation();
+			         
 					o_x=e.targetTouches[0].clientX;
+					
+					return false;
 				})
 				canvas.addEventListener("touchmove",function(e){
-					e.preventDefault();
+					e.preventDefault && e.preventDefault();
+			         e.returnValue = false;
+			         e.stopPropagation && e.stopPropagation();
+
 					let x=e.targetTouches[0].clientX;
 					ang+=ratio*(x-o_x);
 					if(mod(ang,Math.PI*2)<=Math.PI){
@@ -115,6 +123,8 @@ export default function SceneInit2(){
 						rot=Math.PI*3/2;
 					}
 					o_x=x;
+
+					return false;
 				})
 				function render(){
 					camera.position.y=800*Math.cos(ang);
