@@ -1,0 +1,27 @@
+{
+	"game":[
+		"libs/jquery.min.js",
+		"libs/three.js",
+		"libs/DDSLoader.js",
+		"libs/LoaderSupport.js",
+		"libs/inflate.min.js",
+		"libs/FBXLoader.js",
+		"libs/ColladaLoader.js",
+
+		"main.min.js?v=190305.6"
+	],
+	"game2":[
+		"libs/jquery.min.js",
+		"libs/three.js",
+		"libs/DDSLoader.js",
+		"libs/MTLLoader.js",
+		"libs/OBJLoader.js",
+		"libs/LoaderSupport.js",
+		"libs/OBJLoader2.js",
+		"libs/inflate.min.js",
+		"libs/FBXLoader.js",
+		"libs/ColladaLoader.js",
+
+		"main.min.js?v=190305.6"
+	]
+}
