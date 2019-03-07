@@ -1,14 +1,14 @@
 {
 	"game":[
 		"libs/jquery.min.js",
-		"libs/three.js",
+		"libs/three.min.js",
 		"libs/DDSLoader.js",
 		"libs/LoaderSupport.js",
 		"libs/inflate.min.js",
 		"libs/FBXLoader.js",
 		"libs/ColladaLoader.js",
 
-		"main.min.js?v=190307.5"
+		"main.min.js?v=190307.6"
 	],
 	"game2":[
 		"libs/jquery.min.js",
