@@ -8,7 +8,7 @@
 		"libs/FBXLoader.js",
 		"libs/ColladaLoader.js",
 
-		"main.min.js?v=190307.12"
+		"main.min.js?v=190307.13"
 	],
 	"game2":[
 		"libs/jquery.min.js",
