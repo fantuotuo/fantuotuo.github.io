@@ -1,7 +1,7 @@
 {
 	"game":[
 		"libs/jquery.min.js",
-		"libs/three.min.js",
+		"http://www.naozhijian.com/user/lxygwqf2/15/libs/three.min.js",
 		"libs/DDSLoader.js",
 		"libs/LoaderSupport.js",
 		"libs/inflate.min.js",
