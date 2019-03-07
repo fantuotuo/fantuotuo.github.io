@@ -1,7 +1,7 @@
 {
 	"game":[
 		"libs/jquery.min.js",
-		"https://threejs.org/examples/build/three.min.js",
+		"https://threejs.org/build/three.min.js",
 		"libs/DDSLoader.js",
 		"libs/LoaderSupport.js",
 		"libs/inflate.min.js",
