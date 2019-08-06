@@ -1,4 +1,4 @@
-(function (global, factory) {
+﻿(function (global, factory) {
 	if (typeof define === "function" && define.amd) {
 		define(["GameScene2.js", "Container.js", "Box0.js", "Box1.js", "GLB.js", "Par.js"], factory);
 	} else if (typeof exports !== "undefined") {
@@ -40,7 +40,7 @@
 
 	const N = 200;
 	let points = [];
-	const TXT_ARR = ["娟娟：送你", "一个小礼物", "你要每天都", "开心的噢"];
+	const TXT_ARR = ["：送你", "一个小礼物", "你要每天都", "开心的噢"];
 	const W = window.innerWidth;
 	const H = window.innerHeight;
 	const SCALE = 1;
