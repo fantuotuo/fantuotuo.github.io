@@ -40,7 +40,7 @@
 
 	const N = 200;
 	let points = [];
-	const TXT_ARR = ["宝宝：我们","在一起2个", "月啦", "有你真好", "爱你"];
+	const TXT_ARR = ["宝宝：我们","在一起", "2个月啦，", "有你真好", "爱你"];
 	const W = window.innerWidth;
 	const H = window.innerHeight;
 	const SCALE = 1;
