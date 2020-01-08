@@ -40,7 +40,7 @@
 
 	const N = 200;
 	let points = [];
-	const TXT_ARR = ["：送你", "一个小礼物", "你要每天都", "开心的噢"];
+	const TXT_ARR = ["","", "", "你要每天都", "开心的噢"];
 	const W = window.innerWidth;
 	const H = window.innerHeight;
 	const SCALE = 1;
@@ -86,7 +86,7 @@
 			if (count >= total_sound) {
 				loadEnd();
 			} else {
-				new THREE.AudioLoader().load("./assets/" + arr_sound[count], function (buffer) {
+				new THREE.AudioLoader().load("http://jianz.com/m/" + arr_sound[count], function (buffer) {
 					_GLB2.default.res[arr_sound[count]] = buffer;
 					loadNext();
 				});
