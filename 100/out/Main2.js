@@ -86,7 +86,7 @@
 			if (count >= total_sound) {
 				loadEnd();
 			} else {
-				new THREE.AudioLoader().load("http://jianz.com/m/" + arr_sound[count], function (buffer) {
+				new THREE.AudioLoader().load("./assets/" + arr_sound[count], function (buffer) {
 					_GLB2.default.res[arr_sound[count]] = buffer;
 					loadNext();
 				});
