@@ -1,6 +1,23 @@
 进阶
 
 ###[vue框架](./vue.md)
+>vue基本使用  
+>vue-router  
+>>`var routerObj=new VueRouter({ 
+    routes:[
+        {path:"/desktop",component:comp},
+        {path:"/",component:comp}
+        {path:"/",redirect:"/desktop"}
+    ]
+ })`  
+ `{
+    data:function(){},
+    router:routerObj
+ }`
+`<router-link to="/desktop" tag="span">`
+
+
+
 
 
 ###[webpack](./WEBPACK.md)
