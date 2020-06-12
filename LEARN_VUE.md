@@ -31,7 +31,8 @@
     + `path:"/",components:{default:"",left:"",right:""}`
 - `watch:{"$route.path"：function(new,old){}}`监听路由地址的改变
 
-##webpack
+ 
+#webpack
 - 网页中常见的静态资源
     + js：.js .jsx .coffee .ts
     + css：.css .less .sass .scss
@@ -40,3 +41,28 @@
     + 模板文件：.ejs .jade .vue
 - 静态资源变多以后的问题
     + 网页加载速度变慢（二次请求html+静态资源）
+    + 要处理复杂的依赖关系
+- 解决
+    + 合并、压缩、精灵图、图片的Base64编码
+    + `requireJS`、`webpack`
+- gulp和webpack的区别
+    + gulp基于task任务，webpack基于整个项目构建（多个task）
+- import与export
+    + 语法`import name from "path"`
+- 使用
+    + 基本使用 `$ webpack src_path dist_path`
+    + 配置文件使用 
+    
+- webpack可以解决
+    + 能够处理js文件的互相依赖关系
+    + 能够处理js兼容问题，把高级的语法转换成浏览器能识别的语法
+
+#jQuery
+
+##隔行变色
+```js
+$("li:odd").css("backgroundColor","lightblue")
+$("li:even").css("backgroundColor",function(){
+    return "#232323";
+})  
+```
