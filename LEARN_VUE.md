@@ -11,11 +11,11 @@
 
 ##vue-router
 - 基本使用
-    + ```js
-    + var routes=[{path:"/login",component:""}]
-    + var router=new VueRouter({routes})
-    + new Vue({template:"",router})
-    + ```
+```js
+var routes=[{path:"/login",component:""}];
+var router=new VueRouter({routes});
+new Vue({template:"",router});
+```
     + 重定向：{path:"/",redirect:"/login"}
 - router-link
     - 默认被激活的类：`router-link-active`，修改使用`new VueRouter()`中的`linkActiveClass:""`
@@ -52,6 +52,68 @@
 - 使用
     + 基本使用 `$ webpack src_path dist_path`
     + 配置文件使用 
+```js
+module.exports={
+    entry:_dirname+"/src/main.js",
+    output:{
+        path:__dirname+"/dist"
+        filename:"bundle.js"
+    }
+}
+```
+>执行webpack命令过程
+>命令是否指定了入口和出口
+>若未指定，去根目录下查找webpack.config.js文件
+>找到配置文件后，webpack解析执行配置文件，得到配置对象
+>拿到配置对象后，拿到入口和出口，开始打包构建  
+
+    + webpack-dev-server（package.json中添加scripts，"dev":"webpack-dev-server --open --port 3000 --contentBase src --hot"）
+    + server的配置可以在webpack.config.json中做
+```js
+devServer:{
+    open:true,
+    port:3000,
+    contentBase:"src",
+    hot:true
+},
+plugins:[
+    new webpack.HotModuleReplacementPlugin()
+]
+```
+    + html-webpack-plugin（生成html页面并将js插入到页面中）
+```js
+plugins:[
+    new htmlWebpackPlugin({
+        template:__dirname+"/src/index.html",
+        filename:"index.html",
+
+    })
+]
+```
+    + loader：webpack默认只能打包js文件
+```js
+module:{
+    rules:[
+        {
+            test:/\.css$/,
+            use:["style-loader","css-loader"]
+            // 从右到左依次调用loader，css-loader读取成css字符串，style-loader插入样式到html中
+        },{
+            test:/\.less$/,
+            use:["style-loader","css-loader","less-loader"]
+        },{
+            test:/\.scss$/,
+            use:["style-loader","css-loader","sass-loader"]
+        },{
+            test:/\.(png|jpg|jpeg|bmp|gif)/$,
+            use:["url-loader?limit=7632&name=[name]-[hash:32].[ext]"]
+            // limit小图片base64编码，name设置重命名格式，防止重名
+        }
+    ]
+}
+```
+        * css:style-loader，css-loader，less-loader，scss-loader
+        * image:url-loader
     
 - webpack可以解决
     + 能够处理js文件的互相依赖关系
