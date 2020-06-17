@@ -172,3 +172,34 @@ node.js在执行的时候会自动包裹一个变量module
     + `Object.__proto__===Function.prototype===Array.__proto__`
 
 
+
+### ajax
+- 定义：异步javascript和XML，不刷新整个页面的情况下，与服务器交换数据并跟新部分网页
+- 可以设置为同步：`$.ajax({type:"POST",async:false})`，在等待ajax响应之前，页面会停止用户响应
+```js
+$.ajax({
+    url:"url",
+    type:"post",
+    contentType:"application/x-www-form-urlencoded",
+    dataType:"jsonp",
+    jsonp:"callback",
+    success:function(data){
+
+    }
+})
+```
+- get
+    + `$.get("url?param=1",function(data){})`
+    + 使用jsonp：在回调中使用`eval(data)`
+- post
+    + `$.post("url",{data},function(data){},"json")`
+    + 使用jsonp：修改dataType为`"jsonp"`
+- jsonp
+    + 请求跨域资源，原理是利用script标签可以跨域的特点
+    + 客户端：`$.getJSON("api.aspx?callback=?&param=1",function(data){console.log(data)})`
+    + 服务端：`Request.QueryString("callback")+"("+data+")"`
+- get和post请求的区别
+    + get将数据放在URL中传递，post放在request body中
+    + get请求数据长度限制一般为2k
+    + get请求参数暴露，更不安全
+
