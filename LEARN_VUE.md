@@ -9,13 +9,28 @@
 ##父子组件传值
 - 父向子：`v-bind`属性绑定，子向父：`v-on`监听事件与`$emit`触发事件  
 
+##render函数
+    ```js
+    render:function(createElement){
+        return createElements(login);
+    }
+    ```
+
+##引入方式
+- 普通网页
+    + `stript`标签引入vue包
+    + 在页面中创建一个id为app的容器
+    + 通过new Vue创建一个vm实例
+- webpack
+    + 
+
 ##vue-router
 - 基本使用
-```js
-var routes=[{path:"/login",component:""}];
-var router=new VueRouter({routes});
-new Vue({template:"",router});
-```
+    ```js
+    var routes=[{path:"/login",component:""}];
+    var router=new VueRouter({routes});
+    new Vue({template:"",router});
+    ```
     + 重定向：{path:"/",redirect:"/login"}
 - router-link
     - 默认被激活的类：`router-link-active`，修改使用`new VueRouter()`中的`linkActiveClass:""`
@@ -32,6 +47,14 @@ new Vue({template:"",router});
 - `watch:{"$route.path"：function(new,old){}}`监听路由地址的改变
 
  
+
+#node
+- 包的查找规则（比如vue）
+    + 找项目根目录中有没有node_modules文件夹
+    + 在node_modules中根据包名找对应的vue文件夹
+    + 在vue文件夹中，找package.json的配置文件
+    + 在package.json中，寻找main属性【指定了包在加载的时候的入口文件】
+
 #webpack
 - 网页中常见的静态资源
     + js：.js .jsx .coffee .ts
@@ -52,15 +75,15 @@ new Vue({template:"",router});
 - 使用
     + 基本使用 `$ webpack src_path dist_path`
     + 配置文件使用 
-```js
-module.exports={
-    entry:_dirname+"/src/main.js",
-    output:{
-        path:__dirname+"/dist"
-        filename:"bundle.js"
-    }
-}
-```
+        ```js
+        module.exports={
+            entry:_dirname+"/src/main.js",
+            output:{
+                path:__dirname+"/dist"
+                filename:"bundle.js"
+            }
+        }
+        ```
 >执行webpack命令过程
 >命令是否指定了入口和出口
 >若未指定，去根目录下查找webpack.config.js文件
@@ -69,51 +92,82 @@ module.exports={
 
     + webpack-dev-server（package.json中添加scripts，"dev":"webpack-dev-server --open --port 3000 --contentBase src --hot"）
     + server的配置可以在webpack.config.json中做
-```js
-devServer:{
-    open:true,
-    port:3000,
-    contentBase:"src",
-    hot:true
-},
-plugins:[
-    new webpack.HotModuleReplacementPlugin()
-]
-```
+        ```json
+        devServer:{
+            open:true,
+            port:3000,
+            contentBase:"src",
+            hot:true
+        },
+        plugins:[
+            new webpack.HotModuleReplacementPlugin()
+        ]
+        ```
     + html-webpack-plugin（生成html页面并将js插入到页面中）
-```js
-plugins:[
-    new htmlWebpackPlugin({
-        template:__dirname+"/src/index.html",
-        filename:"index.html",
+        ```js
+        plugins:[
+            new htmlWebpackPlugin({
+                template:__dirname+"/src/index.html",
+                filename:"index.html",
 
-    })
-]
-```
+            })
+        ]
+        ```
     + loader：webpack默认只能打包js文件
-```js
-module:{
-    rules:[
-        {
-            test:/\.css$/,
-            use:["style-loader","css-loader"]
-            // 从右到左依次调用loader，css-loader读取成css字符串，style-loader插入样式到html中
-        },{
-            test:/\.less$/,
-            use:["style-loader","css-loader","less-loader"]
-        },{
-            test:/\.scss$/,
-            use:["style-loader","css-loader","sass-loader"]
-        },{
-            test:/\.(png|jpg|jpeg|bmp|gif)/$,
-            use:["url-loader?limit=7632&name=[name]-[hash:32].[ext]"]
-            // limit小图片base64编码，name设置重命名格式，防止重名
+        ```json
+        module:{
+            rules:[
+                {
+                    test:/\.css$/,
+                    use:["style-loader","css-loader"]
+                    // 从右到左依次调用loader，css-loader读取成css字符串，style-loader插入样式到html中
+                },{
+                    test:/\.less$/,
+                    use:["style-loader","css-loader","less-loader"]
+                },{
+                    test:/\.scss$/,
+                    use:["style-loader","css-loader","sass-loader"]
+                },{
+                    test:/\.(png|jpg|jpeg|bmp|gif)$/,
+                    use:["url-loader?limit=7632&name=[name]-[hash:32].[ext]"]
+                    // limit小图片base64编码，name设置重命名格式，防止重名
+                }
+            ]
         }
-    ]
-}
-```
+        ```
         * css:style-loader，css-loader，less-loader，scss-loader
         * image:url-loader
+    + babel
+        处理高级ES6和ES7的语法
+        ```js
+        class Person{
+            constructor(){
+
+            }
+            static info=1
+            run(){
+
+            }
+        }
+        ```
+        * 安装依赖
+            * npm install babel-core babel-loader babel-plugin-transform-runtime -D
+            * npm install babel-preset-env babel-preset-stage-0 -D
+        * 修改配置文件中module.rules
+        ```json
+        {
+            test:/\.js$/,
+            user:"babel-loader",
+            exclude:/node_modules/
+        }
+        ```
+        * 根目录新建.babelrs配置文件（JSON语法规范）
+        ```json
+        {
+            "presets":["env","stage-0"],
+            "plugins":["transform-runtime"]
+        }
+        ```
     
 - webpack可以解决
     + 能够处理js文件的互相依赖关系
